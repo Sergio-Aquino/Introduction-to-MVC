@@ -14,8 +14,8 @@ public class RequisicaoNovoProfessor {
     @NotBlank
     @NonNull
     private String nome;
-    @DecimalMin(value = "0.0")
     @NotNull
+    @DecimalMin(value = "0.0")
     private BigDecimal salario;
     private StatusProfessor statusProfessor;
 

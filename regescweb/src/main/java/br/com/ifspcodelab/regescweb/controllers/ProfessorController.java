@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -99,6 +98,31 @@ public class ProfessorController {
 
         } else {
             return new ModelAndView("redirect:/professores");
+        }
+    }
+
+    @PostMapping("/{id}")
+    public ModelAndView update(@PathVariable Long id, @Valid RequisicaoFormProfessor requisicao, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            System.out.println("Há erros!");
+
+            ModelAndView mv = new ModelAndView("professores/edit");
+            mv.addObject("professorId", id);
+            mv.addObject("listStatusProfessor", StatusProfessor.values());
+            return mv;
+
+        } else {
+           Optional<Professor> optional = this.professorRepository.findById(id);
+
+           if (optional.isPresent()) {
+               Professor professor = requisicao.toProfessor(optional.get());
+               this.professorRepository.save(professor);
+
+               return new ModelAndView("redirect:/professores/" + professor.getId());
+
+           } else {
+               return new ModelAndView("redirect:/professores");
+           }
         }
     }
 }

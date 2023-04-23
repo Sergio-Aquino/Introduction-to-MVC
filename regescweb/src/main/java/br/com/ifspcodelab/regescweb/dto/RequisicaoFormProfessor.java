@@ -57,6 +57,14 @@ public class RequisicaoFormProfessor {
         this.statusProfessor = professor.getStatusProfessor();
     }
 
+    public Professor toProfessor(Professor professor) {
+        professor.setNome(this.nome);
+        professor.setSalario(this.salario);
+        professor.setStatusProfessor(this.statusProfessor);
+
+        return professor;
+    }
+
     @Override
     public String toString() {
         return "RequisicaoFormProfessor{" + "nome= " + nome  + ", salario= " + salario + ", statusProfessor= " + statusProfessor + '}';

@@ -9,7 +9,7 @@
 <div class="container">
     <div class="container">
         <div class="row">
-            <form th:object="${requisicaoFormProfessor}" action="/professores" method="Post">
+            <form th:object="${requisicaoFormProfessor}" th:action="@{/professores/{professorId}(professorId = ${professorId})}" method="Post">
                 <div class="mb-3">
                     <label class="form-label">Nome do Professor</label>
                     <input class="form-control" th:errorclass="is-invalid" type="text" th:field="*{nome}">

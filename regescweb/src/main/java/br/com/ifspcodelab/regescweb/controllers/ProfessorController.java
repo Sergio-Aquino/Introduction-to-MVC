@@ -7,15 +7,18 @@ import br.com.ifspcodelab.regescweb.repositories.ProfessorRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ProfessorController {
@@ -63,6 +66,21 @@ public class ProfessorController {
         } else {
             Professor professor = requisicao.toProfessor();
             this.professorRepository.save(professor);
+            return new ModelAndView("redirect:/professores/" + professor.getId());
+        }
+    }
+
+    @GetMapping("/professores/{id}")
+    public ModelAndView show(@PathVariable Long id) {
+        Optional<Professor> optional = this.professorRepository.findById(id);
+
+        if (optional.isPresent()) {
+            Professor professor = optional.get();
+
+            ModelAndView mv = new ModelAndView("professores/show");
+            mv.addObject("professor", professor);
+            return mv;
+        } else {
             return new ModelAndView("redirect:/professores");
         }
     }

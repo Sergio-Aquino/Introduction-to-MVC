@@ -10,7 +10,7 @@ import org.springframework.lang.NonNull;
 import java.math.BigDecimal;
 
 //Classe DTO (Data Transfer Object)
-public class RequisicaoNovoProfessor {
+public class RequisicaoFormProfessor {
     @NotBlank
     @NonNull
     private String nome;
@@ -51,8 +51,14 @@ public class RequisicaoNovoProfessor {
         return professor;
     }
 
+    public void fromProfessor(Professor professor) {
+        this.nome = professor.getNome();
+        this.salario = professor.getSalario();
+        this.statusProfessor = professor.getStatusProfessor();
+    }
+
     @Override
     public String toString() {
-        return "RequisicaoNovoProfessor{" + "nome= " + nome  + ", salario= " + salario + ", statusProfessor= " + statusProfessor + '}';
+        return "RequisicaoFormProfessor{" + "nome= " + nome  + ", salario= " + salario + ", statusProfessor= " + statusProfessor + '}';
     }
 }
